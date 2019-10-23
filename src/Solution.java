@@ -1,25 +1,25 @@
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.Map;
 
 class Solution {
-	public int solution(String arrangement) {
-		int answer = 0;
-		Stack<String> lStack = new Stack<>();
-		int barNum = 0;
-		for (int i = 0; i < arrangement.length(); i++) {
-			lStack.push(arrangement.substring(i, i + 1));
-		}
-		while (!lStack.isEmpty()) {
-			String tmp = lStack.pop();
-			if (tmp.equals(")")) {
-				barNum++;
-				if (lStack.peek().equals("(")) {
-					barNum--;
-					answer += barNum;
-					lStack.pop();
-				}
+	public String solution(String[] participant, String[] completion) {
+		String answer = "";
+		Map<String, Integer> participants = new HashMap<>();
+		for (String name : participant) {
+			if (participants.containsKey(name)) {
+				participants.replace(name, participants.get(name) + 1);
 			} else {
-				barNum--;
-				answer += 1;
+				participants.put(name, 1);
+			}
+		}
+		for (String name : completion) {
+			if (participants.containsKey(name)) {
+				participants.replace(name, participants.get(name) - 1);
+			}
+		}
+		for (String name : participant) {
+			if (participants.get(name) == 1) {
+				answer = name;
 			}
 		}
 		return answer;
