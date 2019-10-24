@@ -1,15 +1,15 @@
-import java.util.Arrays;
+import java.util.HashMap;
 
 class Solution {
-	public boolean solution(String[] phone_book) {
-		boolean answer = true;
-		Arrays.sort(phone_book);
-		for (int i = 1; i < phone_book.length; i++) {
-			if (phone_book[i].contains(phone_book[0])) {
-				answer = false;
-				break;
-			}
+	public int solution(String[][] clothes) {
+		int answer = 1;
+		HashMap<String, Integer> hm = new HashMap<>();
+		for (int i = 0; i < clothes.length; i++) {
+			hm.put(clothes[i][1], hm.getOrDefault(clothes[i][1], 0)+1);
 		}
-		return answer;
+		for(int value : hm.values()) {
+			answer *= (value+1);
+		}
+		return answer-1;
 	}
 }
