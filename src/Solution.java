@@ -1,15 +1,21 @@
-import java.util.HashMap;
+import java.util.Arrays;
 
 class Solution {
-	public int solution(String[][] clothes) {
-		int answer = 1;
-		HashMap<String, Integer> hm = new HashMap<>();
-		for (int i = 0; i < clothes.length; i++) {
-			hm.put(clothes[i][1], hm.getOrDefault(clothes[i][1], 0)+1);
+	public int[] solution(int[] array, int[][] commands) {
+		int n = commands.length;
+		int[] answer = new int[n];
+		for (int p = 0; p < n; p++) {
+			int i = commands[p][0]-1;
+			int j = commands[p][1]-1;
+			int k = commands[p][2]-1;
+			int[] tmp = new int[j - i + 1];
+			for (int q = i; q <= j; q++) {
+				tmp[q - i] = array[q];
+			}
+			Arrays.sort(tmp);
+			System.out.println(tmp[k]);
+			answer[p] = tmp[k];
 		}
-		for(int value : hm.values()) {
-			answer *= (value+1);
-		}
-		return answer-1;
+		return answer;
 	}
 }
