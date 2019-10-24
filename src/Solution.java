@@ -1,26 +1,36 @@
+import java.util.LinkedList;
+
 class Solution {
-	public int solution(String skill, String[] skill_trees) {
+	public int solution(int[] priorities, int location) {
 		int answer = 0;
-		for (int i = 0; i < skill_trees.length; i++) {
-			String customSkill = skill_trees[i];
-			String tmp = "";
-			for (int j = 0; j < customSkill.length(); j++) {
-				if (skill.contains(customSkill.substring(j, j + 1))) {
-					tmp += customSkill.substring(j, j + 1);
+		LinkedList<Integer> waiting = new LinkedList<>();
+		for (int priority : priorities) {
+			waiting.add(priority);
+		}
+		while (!waiting.isEmpty()) {
+			boolean isMin = true;
+			for (int i = 1; i < waiting.size(); i++) {
+				if (waiting.get(0) < waiting.get(i)) {
+					waiting.add(waiting.poll());
+					if (location == 0) {
+						location = waiting.size() - 1;
+					} else {
+						location--;
+					}
+					isMin = false;
+					break;
 				}
 			}
-			if (check(skill, tmp)) {
+			if (isMin) {
+				waiting.poll();
 				answer++;
+				if (location == 0) {
+					break;
+				} else {
+					location--;
+				}
 			}
 		}
 		return answer;
-	}
-
-	boolean check(String skill, String tmp) {
-		if (skill.substring(0, tmp.length()).equals(tmp)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
