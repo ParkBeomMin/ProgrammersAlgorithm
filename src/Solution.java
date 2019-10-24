@@ -1,25 +1,13 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 class Solution {
-	public String solution(String[] participant, String[] completion) {
-		String answer = "";
-		Map<String, Integer> participants = new HashMap<>();
-		for (String name : participant) {
-			if (participants.containsKey(name)) {
-				participants.replace(name, participants.get(name) + 1);
-			} else {
-				participants.put(name, 1);
-			}
-		}
-		for (String name : completion) {
-			if (participants.containsKey(name)) {
-				participants.replace(name, participants.get(name) - 1);
-			}
-		}
-		for (String name : participant) {
-			if (participants.get(name) == 1) {
-				answer = name;
+	public boolean solution(String[] phone_book) {
+		boolean answer = true;
+		Arrays.sort(phone_book);
+		for (int i = 1; i < phone_book.length; i++) {
+			if (phone_book[i].contains(phone_book[0])) {
+				answer = false;
+				break;
 			}
 		}
 		return answer;
