@@ -1,30 +1,21 @@
+import java.util.Arrays;
+
 class Solution {
-	public int solution(int[] numbers, int target) {
-		int answer = 0;
-		int[] result = new int[1];
-		dfs(numbers, 0, 0, target, result);
-		dfs(numbers, 1, 0, target, result);
-		answer = result[0] / 2;
+	public String solution(int[] numbers) {
+		String answer = "";
+		String[] arr = new String[numbers.length];
+		for (int i = 0; i < numbers.length; i++) {
+			arr[i] = String.valueOf(numbers[i]);
+		}
+		Arrays.sort(arr, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+		if(arr[0].equals("0")) {
+			answer = "0";
+		}else {
+			for (int i = 0; i < arr.length; i++) {
+				answer += arr[i];
+			}	
+		}
+		
 		return answer;
 	}
-
-	void dfs(int[] numbers, int flag, int depth, int target, int[] result) {
-		if (depth == numbers.length) {
-			int tmp = 0;
-			for (int i = 0; i < numbers.length; i++) {
-				tmp += numbers[i];
-			}
-			if (tmp == target) {
-				result[0]++;
-			}
-		} else {
-			if (flag == 0) {
-				numbers[depth] *= -1;
-			}
-			dfs(numbers, 0, depth + 1, target, result);
-			numbers[depth] *= -1;
-			dfs(numbers, 1, depth + 1, target, result);
-		}
-	}
-
 }
