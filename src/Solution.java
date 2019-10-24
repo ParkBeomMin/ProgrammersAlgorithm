@@ -1,82 +1,30 @@
-import java.util.HashSet;
-
 class Solution {
-	int answer = 0;
-
-	public int solution(String numbers) {
-		int[] numberArr = new int[numbers.length()];
-		HashSet<Integer> set = new HashSet<>();
-		for (int i = 0; i < numbers.length(); i++) {
-			numberArr[i] = Integer.parseInt(numbers.substring(i, i + 1));
-		}
-		for (int i = 1; i <= numbers.length(); i++) {
-			permutation(numberArr, 0, i, set);
-		}
-		answer = set.size();
+	public int solution(int[] numbers, int target) {
+		int answer = 0;
+		int[] result = new int[1];
+		dfs(numbers, 0, 0, target, result);
+		dfs(numbers, 1, 0, target, result);
+		answer = result[0] / 2;
 		return answer;
 	}
 
-	void permutation(int[] numbers, int depth, int k, HashSet<Integer> set) {
-		if (depth == k) {
+	void dfs(int[] numbers, int flag, int depth, int target, int[] result) {
+		if (depth == numbers.length) {
 			int tmp = 0;
-			for (int i = 0; i < k; i++) {
-				tmp += numbers[i] * Math.pow(10, i);
-			}
-			if (isPrime(tmp)) {
-				set.add(tmp);
-			}
-		} else {
-			for (int i = depth; i < numbers.length; i++) {
-				swap(numbers, i, depth);
-				permutation(numbers, depth + 1, k, set);
-				swap(numbers, i, depth);
-			}
-		}
-	}
-
-	void swap(int[] arr, int x, int y) {
-		int tmp = arr[x];
-		arr[x] = arr[y];
-		arr[y] = tmp;
-	}
-
-	void dfs(int[] numbers, boolean[] visited, int p, int[] result, int n, HashSet<Integer> set) {
-		if (p == n) {
-			int tmp = 0;
-			for (int i = 0; i < result.length; i++) {
-				// System.out.print(result[i]);
-				tmp += result[i] * Math.pow(10, i);
-			}
-			// System.out.print(tmp);
-			set.add(tmp);
-			// if (isPrime(tmp)) {
-			// answer++;
-			// }
-
-			System.out.println();
-		} else {
 			for (int i = 0; i < numbers.length; i++) {
-				if (!visited[i]) {
-					visited[i] = true;
-					result[p] = numbers[i];
-					dfs(numbers, visited, p + 1, result, n, set);
-					visited[i] = false;
-				}
+				tmp += numbers[i];
 			}
-
-		}
-	}
-
-	boolean isPrime(int num) {
-		if (num <= 1) {
-			return false;
+			if (tmp == target) {
+				result[0]++;
+			}
 		} else {
-			for (int i = 2; i < num; i++) {
-				if (num % i == 0) {
-					return false;
-				}
+			if (flag == 0) {
+				numbers[depth] *= -1;
 			}
+			dfs(numbers, 0, depth + 1, target, result);
+			numbers[depth] *= -1;
+			dfs(numbers, 1, depth + 1, target, result);
 		}
-		return true;
 	}
+
 }
