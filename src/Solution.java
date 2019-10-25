@@ -1,22 +1,30 @@
+import java.util.Stack;
+
 class Solution {
-	public String solution(int n) {
-		String answer = "";
-		int[] nums = { 4, 1, 2 };
-		while (true) {
-			answer += nums[n % 3];
-			if (n % 3 == 0) {
-				n -= 1;
-			}
-			if (n / 3 == 0) {
-				break;
-			}
-			n = n / 3;
+	public int[] solution(int[] heights) {
+		int[] answer = new int[heights.length];
+		int index = heights.length - 1;
+		Stack<Integer> stack = new Stack<>();
+		for (int i = 0; i < heights.length; i++) {
+			stack.push(heights[i]);
 		}
-		String tmp = "";
-		for (int i = 0; i < answer.length(); i++) {
-			tmp += String.valueOf(answer.charAt(answer.length() - 1 - i));
+		while (index > 0) {
+			boolean isReceive = false;
+			for (int i = index; i >= 0; i--) {
+				if (heights[i] > stack.peek()) {
+					answer[index] = i + 1;
+					stack.pop();
+					isReceive = true;
+					break;
+				}
+			}
+			if (!isReceive) {
+				stack.pop();
+			}
+
+			index--;
 		}
-		answer = tmp;
+
 		return answer;
 	}
 }
