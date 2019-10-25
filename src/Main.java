@@ -5,9 +5,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		// int[] heights = {6,9,5,7,4};
 		// int[] heights = {1, 5, 3, 6, 7, 6, 5};
-		int[] heights = { 5, 4, 3, 2, 1 };
+		int[] arr = { 1, 2, 3, 9, 10, 12 };
+		int k = 7;
 		Solution s = new Solution();
-		System.out.println(s.solution(heights));
+		System.out.println(s.solution(arr, k));
 	}
 
 }

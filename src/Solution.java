@@ -1,30 +1,23 @@
-import java.util.Stack;
+import java.util.PriorityQueue;
 
 class Solution {
-	public int[] solution(int[] heights) {
-		int[] answer = new int[heights.length];
-		int index = heights.length - 1;
-		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < heights.length; i++) {
-			stack.push(heights[i]);
-		}
-		while (index > 0) {
-			boolean isReceive = false;
-			for (int i = index; i >= 0; i--) {
-				if (heights[i] > stack.peek()) {
-					answer[index] = i + 1;
-					stack.pop();
-					isReceive = true;
-					break;
-				}
-			}
-			if (!isReceive) {
-				stack.pop();
-			}
-
-			index--;
+	public int solution(int[] scoville, int K) {
+		int answer = 0;
+		PriorityQueue<Integer> queue = new PriorityQueue<>();
+		for (int i = 0; i < scoville.length; i++) {
+			queue.offer(scoville[i]);
 		}
 
+		while (queue.peek() < K) {
+			if (queue.size() == 1) {
+				answer = -1;
+				break;
+			}
+			int a = queue.poll();
+			int b = queue.poll();
+			queue.offer(a + b * 2);
+			answer++;
+		}
 		return answer;
 	}
 }
