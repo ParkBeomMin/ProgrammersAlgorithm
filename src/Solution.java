@@ -1,22 +1,23 @@
-import java.util.PriorityQueue;
-
 class Solution {
-	public int solution(int stock, int[] dates, int[] supplies, int k) {
+	public int solution(int n, int[][] computers) {
 		int answer = 0;
-		int dateIndex = 0;
-		PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> b.compareTo(a)); // 큰수가앞으로
-		for (int i = 0; i < k; i++) {
-			if (dateIndex < dates.length && dates[dateIndex] == i) {
-				queue.offer(supplies[dateIndex]);
-				dateIndex++;
-			}
-			if (stock == 0) {
-				stock += queue.poll();
+		boolean[][] visited = new boolean[n][n];
+		for (int i = 0; i < n; i++) {
+			if (!visited[i][i]) {
+				dfs(computers, visited, i);
 				answer++;
 			}
-			stock--;
 		}
-
 		return answer;
+	}
+
+	void dfs(int[][] computers, boolean[][] visited, int depth) {
+		for (int i = 0; i < computers.length; i++) {
+			if (!visited[depth][i] && computers[depth][i] == 1) {
+				visited[depth][i] = true;
+				visited[i][depth] = true;
+				dfs(computers, visited, i);
+			}
+		}
 	}
 }
