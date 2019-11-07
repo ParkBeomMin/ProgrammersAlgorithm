@@ -2,17 +2,14 @@
 public class Main {
 
 	public static void main(String[] args) {
-		int a = 2;
-		int b = 10;
-		int[] arr = { 7, 4, 5, 6 };
-//		int a = 100;
-//		int b = 100;
-//		int[] arr = { 10 };
-//		int a = 100;
-//		int b = 100;
-//		int[] arr = { 10,10,10,10,10,10,10,10,10,10 };
+		// int[] arr = { 1, 2, 3, 2, 3 };
+		// int[] arr = { 2,4,3,1,5 };
+		// int[] arr = { 2,2,2,2,2 };
+		// int[] arr = { 1, 2, 3, 4, 5 };
+		// int[] arr = { 5,4,3,2,1 };
+		int[] arr = { 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3 };
 		Solution s = new Solution();
-		System.out.println(s.solution(a, b, arr));
+		System.out.println(s.solution(arr));
 	}
 
 }
